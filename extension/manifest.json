@@ -1,0 +1,61 @@
+{
+   "action": {
+      "default_icon": {
+         "16": "images/icon16.png",
+         "32": "images/icon32.png",
+         "48": "images/icon48.png"
+      },
+      "default_title": "ChatGPT"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "commands": {
+      "_execute_action": {
+         "suggested_key": {
+            "default": "Ctrl+Shift+Period",
+            "mac": "Command+Shift+Period"
+         }
+      },
+      "open-codex-side-panel": {
+         "description": "Open ChatGPT side panel"
+      }
+   },
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "content-scripts/chatgpt-website.js" ],
+      "matches": [ "https://chatgpt.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "all_frames": true,
+      "js": [ "content-scripts/codex-work-media-permission.js" ],
+      "matches": [ "https://chatgpt.com/*" ],
+      "run_at": "document_start",
+      "world": "MAIN"
+   } ],
+   "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self' http://127.0.0.1:* http://localhost:* ws://127.0.0.1:* ws://localhost:* https://ab.chatgpt.com https://chatgpt.com https://api.openai.com https://api.openai.org; font-src 'self' https://cdn.openai.com;",
+      "sandbox": "sandbox allow-scripts; default-src 'none'; script-src 'self' 'unsafe-eval'; worker-src blob:; connect-src 'none';"
+   },
+   "description": "Control your browser with ChatGPT.",
+   "host_permissions": [ "\u003Call_urls>" ],
+   "icons": {
+      "128": "images/icon128.png",
+      "16": "images/icon16.png",
+      "32": "images/icon32.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr5M/DZ28sAuOnk9v8C2IPTLNEZ0F0pv9qwRzMAbGbE0NB6I6T+wS6Na2n0sbQOK98iezN2FX26dsBWMELXtf4YCETdRiFSBOnNhZObZdrxeTTrhk1AhKA/Id5vgDWfSZ3Q+9BjBWHYK9yuTGo3PMK/yOW/CH6cSn07btvn7Aq+t+KrAwGOJewCN7gGojOrshJs/YwdxwxpUnb7s6QbFGkPKg9G6as4y4ipQ8fiQHRAcKm+mUK/CoCVSL+c4Yog0CSJqEEaruOeh8CgM4V0LX4kw5rs/4THAvTwtYRsW0n3faVR7uGj1eadsWuKciQHxpRMI9I4EE7yuaxavv3Agf6QIDAQAB",
+   "manifest_version": 3,
+   "minimum_chrome_version": "116",
+   "name": "ChatGPT",
+   "optional_permissions": [ "downloads.open" ],
+   "permissions": [ "alarms", "bookmarks", "debugger", "declarativeNetRequestWithHostAccess", "downloads", "favicon", "history", "nativeMessaging", "notifications", "scripting", "sessions", "storage", "tabGroups", "tabs", "topSites", "webNavigation", "contextMenus", "sidePanel" ],
+   "side_panel": {
+      "default_path": "codex-sidepanel/index.html"
+   },
+   "version": "1.26.901.11451",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "images/cursor-chat.png" ]
+   } ]
+}
